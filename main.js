@@ -27,7 +27,7 @@ if (menuToggle && mainNav && siteHeader && heroSection) {
 
   const syncHeaderState = () => {
     headerFrame = 0;
-    const isPastHero = heroSection.getBoundingClientRect().bottom <= 0;
+    const isPastHero = desktopNavigation.matches && window.scrollY > 4;
     const stateChanged = siteHeader.classList.contains('is-past-hero') !== isPastHero;
     siteHeader.classList.toggle('is-past-hero', isPastHero);
     if (stateChanged || !desktopNavigation.matches) setMenuOpen(false);
@@ -408,4 +408,18 @@ document.querySelectorAll('.why-card').forEach((card) => {
     card.style.setProperty('--y', `${y}px`);
   });
 });
+
+// Intersection Observer for Comparison Table scroll reveal
+const compareTable = document.querySelector('.compare-table');
+if (compareTable) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        compareTable.classList.add('revealed');
+        observer.unobserve(compareTable);
+      }
+    });
+  }, { threshold: 0.15 });
+  observer.observe(compareTable);
+}
 
