@@ -4,9 +4,32 @@ const siteHeader = document.querySelector('.site-header');
 const heroSection = document.querySelector('.hero');
 const menuToggleLabel = menuToggle?.querySelector('.menu-toggle__label');
 const desktopNavigation = window.matchMedia('(min-width: 1101px)');
+const reducedNavigationMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 if (menuToggle && mainNav && siteHeader && heroSection) {
   let headerFrame = 0;
+  let headerStateInitialized = false;
+  let floatingHeaderState = siteHeader.classList.contains('is-past-hero');
+  let headerTransitionRequest = 0;
+  let activeHeaderTransition = null;
+
+  const canMorphHeader = () => (
+    desktopNavigation.matches
+    && !reducedNavigationMotion.matches
+    && typeof document.startViewTransition === 'function'
+  );
+
+  const syncMorphCapability = () => {
+    document.documentElement.classList.toggle(
+      'nav-morph-enabled',
+      typeof document.startViewTransition === 'function'
+        && !reducedNavigationMotion.matches
+    );
+    if (reducedNavigationMotion.matches) {
+      activeHeaderTransition?.skipTransition();
+      document.documentElement.classList.remove('nav-morph-to-dock', 'nav-morph-to-top');
+    }
+  };
 
   const isFloatingNavigation = () => (
     desktopNavigation.matches && siteHeader.classList.contains('is-past-hero')
@@ -25,12 +48,62 @@ if (menuToggle && mainNav && siteHeader && heroSection) {
     if (returnFocus) menuToggle.focus({ preventScroll: true });
   };
 
+  const applyHeaderState = (floating) => {
+    siteHeader.classList.toggle('is-past-hero', floating);
+    setMenuOpen(false);
+  };
+
+  const morphHeaderTo = (floating) => {
+    floatingHeaderState = floating;
+    const request = ++headerTransitionRequest;
+    activeHeaderTransition?.skipTransition();
+
+    if (!canMorphHeader()) {
+      applyHeaderState(floating);
+      activeHeaderTransition = null;
+      document.documentElement.classList.remove('nav-morph-to-dock', 'nav-morph-to-top');
+      return;
+    }
+
+    document.documentElement.classList.toggle('nav-morph-to-dock', floating);
+    document.documentElement.classList.toggle('nav-morph-to-top', !floating);
+    let transition;
+    try {
+      transition = document.startViewTransition(() => {
+        if (request === headerTransitionRequest) applyHeaderState(floating);
+      });
+    } catch {
+      applyHeaderState(floating);
+      activeHeaderTransition = null;
+      document.documentElement.classList.remove('nav-morph-to-dock', 'nav-morph-to-top');
+      return;
+    }
+    activeHeaderTransition = transition;
+    transition.finished
+      .catch(() => {})
+      .finally(() => {
+        if (activeHeaderTransition === transition) {
+          activeHeaderTransition = null;
+          document.documentElement.classList.remove('nav-morph-to-dock', 'nav-morph-to-top');
+        }
+      });
+  };
+
   const syncHeaderState = () => {
     headerFrame = 0;
-    const isPastHero = desktopNavigation.matches && window.scrollY > 4;
-    const stateChanged = siteHeader.classList.contains('is-past-hero') !== isPastHero;
-    siteHeader.classList.toggle('is-past-hero', isPastHero);
-    if (stateChanged || !desktopNavigation.matches) setMenuOpen(false);
+    const isPastHero = desktopNavigation.matches && (
+      floatingHeaderState ? window.scrollY > 1 : window.scrollY > 4
+    );
+
+    if (!headerStateInitialized) {
+      floatingHeaderState = isPastHero;
+      applyHeaderState(isPastHero);
+      headerStateInitialized = true;
+      return;
+    }
+
+    if (floatingHeaderState !== isPastHero) morphHeaderTo(isPastHero);
+    if (!desktopNavigation.matches) setMenuOpen(false);
   };
 
   const requestHeaderSync = () => {
@@ -64,6 +137,11 @@ if (menuToggle && mainNav && siteHeader && heroSection) {
   window.addEventListener('scroll', requestHeaderSync, { passive: true });
   window.addEventListener('resize', requestHeaderSync, { passive: true });
   desktopNavigation.addEventListener('change', syncHeaderState);
+  reducedNavigationMotion.addEventListener('change', () => {
+    syncMorphCapability();
+    syncHeaderState();
+  });
+  syncMorphCapability();
   syncHeaderState();
 }
 
@@ -509,4 +587,3 @@ if (compareTable) {
   }, { threshold: 0.15 });
   observer.observe(compareTable);
 }
-

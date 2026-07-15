@@ -55,8 +55,13 @@ button,input,select,textarea{font:inherit}
   .pool-types.pool-stack-active{
     position:relative;
     z-index:0;
-    margin-bottom:25svh;
+    margin-bottom:0;
     padding-bottom:0;
+  }
+
+  .pool-types.pool-stack-active ~ section {
+    position: relative;
+    z-index: 10;
   }
 
   .pool-stack-active .pool-list{
@@ -139,7 +144,7 @@ button,input,select,textarea{font:inherit}
 
 /* Final CTA + footer */
 .final-cta{border-top:3px solid #75dbf4;padding:190px 0 185px;text-align:center;background:#111}.final-cta h2{font-size:clamp(70px,6vw,108px);color:#fff}.final-cta p{margin:45px 0 52px;color:#dedede;font-size:27px}.final-actions{display:flex;justify-content:center;gap:34px}.final-actions .btn{height:88px;min-width:560px;font-size:26px}.btn-blue{background:linear-gradient(90deg,#0b95fa,#004ed4);color:#fff}.btn-call{background:linear-gradient(90deg,#9bedff,#fff);color:#111}
-.site-footer{background:#030303;color:#e8e8e8;border-top:0;padding:155px 0 45px}.footer-grid{display:grid;grid-template-columns:1.45fr .9fr .85fr 1.3fr;gap:95px;align-items:start}.footer-brand img{width:150px;margin-bottom:48px}.footer-brand p{font-size:25px;line-height:1.55;color:#f1f1f1;max-width:460px;margin:0 0 48px}.socials{display:flex;gap:26px}.socials a{width:56px;height:56px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-weight:800;font-size:28px}.site-footer h3{font-size:28px;margin:48px 0 50px;color:#fff}.site-footer a{display:block;color:#eeeeee;font-size:25px;margin-bottom:34px}.site-footer a:hover{color:#5cd9ff}.contact p{display:grid;grid-template-columns:30px 1fr;gap:20px;align-items:start;margin:0 0 28px;color:#eee;font-size:25px;line-height:1.45}.contact a{margin:0}.contact svg{width:26px;height:26px;fill:none;stroke:#008cf5;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;margin-top:4px}.footer-bottom{border-top:1px solid #3a3a3a;margin-top:78px;padding-top:38px}.footer-bottom p{margin:0;color:#aaa;font-size:24px}
+.site-footer{position:relative;z-index:10;background:#030303;color:#e8e8e8;border-top:0;padding:155px 0 45px}.footer-grid{display:grid;grid-template-columns:1.45fr .9fr .85fr 1.3fr;gap:95px;align-items:start}.footer-brand img{width:150px;margin-bottom:48px}.footer-brand p{font-size:25px;line-height:1.55;color:#f1f1f1;max-width:460px;margin:0 0 48px}.socials{display:flex;gap:26px}.socials a{width:56px;height:56px;border-radius:50%;background:#fff;color:#000;display:grid;place-items:center;font-weight:800;font-size:28px}.site-footer h3{font-size:28px;margin:48px 0 50px;color:#fff}.site-footer a{display:block;color:#eeeeee;font-size:25px;margin-bottom:34px}.site-footer a:hover{color:#5cd9ff}.contact p{display:grid;grid-template-columns:30px 1fr;gap:20px;align-items:start;margin:0 0 28px;color:#eee;font-size:25px;line-height:1.45}.contact a{margin:0}.contact svg{width:26px;height:26px;fill:none;stroke:#008cf5;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;margin-top:4px}.footer-bottom{border-top:1px solid #3a3a3a;margin-top:78px;padding-top:38px}.footer-bottom p{margin:0;color:#aaa;font-size:24px}
 
 /* Keep the supplied desktop composition for exact hero typography, but replace
    its flattened header area with the clean source image and a real navbar. */
@@ -343,5 +348,77 @@ button,input,select,textarea{font:inherit}
   .site-header.is-past-hero,.site-header.is-past-hero *{
     animation:none!important;
     transition:none!important;
+  }
+}
+
+/* Morph the live hero navbar from its rendered position into the compact dock.
+   Named snapshots let the motion start from the exact responsive geometry. */
+@supports (view-transition-name:rbi-nav-shell){
+  @media (min-width:1101px) and (prefers-reduced-motion:no-preference){
+    html.nav-morph-enabled{view-transition-name:none}
+    html.nav-morph-enabled .site-header:not(.is-past-hero) .main-nav{view-transition-name:rbi-nav-shell}
+    html.nav-morph-enabled .site-header.is-past-hero{view-transition-name:rbi-nav-shell;animation:none}
+    html.nav-morph-enabled .site-header .brand img{view-transition-name:rbi-nav-logo}
+
+    ::view-transition-group(rbi-nav-shell),
+    ::view-transition-group(rbi-nav-logo){
+      animation-duration:.72s;
+      animation-timing-function:cubic-bezier(.16,1,.3,1);
+    }
+
+    ::view-transition-image-pair(rbi-nav-shell),
+    ::view-transition-image-pair(rbi-nav-logo){isolation:isolate}
+
+    html.nav-morph-to-dock::view-transition-old(rbi-nav-shell){
+      animation:rbiNavOldOut .72s linear both;
+      mix-blend-mode:normal;
+    }
+
+    html.nav-morph-to-dock::view-transition-new(rbi-nav-shell){
+      animation:rbiNavNewIn .72s linear both;
+      mix-blend-mode:normal;
+    }
+
+    html.nav-morph-to-top::view-transition-group(rbi-nav-shell),
+    html.nav-morph-to-top::view-transition-group(rbi-nav-logo){
+      animation-timing-function:cubic-bezier(.65,0,.35,1);
+    }
+
+    html.nav-morph-to-top::view-transition-old(rbi-nav-shell){
+      animation:rbiDockOldOut .72s linear both;
+      mix-blend-mode:normal;
+    }
+
+    html.nav-morph-to-top::view-transition-new(rbi-nav-shell){
+      animation:rbiFullNewIn .72s linear both;
+      mix-blend-mode:normal;
+    }
+
+    ::view-transition-old(rbi-nav-logo),
+    ::view-transition-new(rbi-nav-logo){
+      animation-duration:.72s;
+      animation-timing-function:cubic-bezier(.16,1,.3,1);
+      mix-blend-mode:normal;
+    }
+
+    @keyframes rbiNavOldOut{
+      0%,20%{opacity:1}
+      64%,100%{opacity:0}
+    }
+
+    @keyframes rbiNavNewIn{
+      0%,28%{opacity:0}
+      68%,100%{opacity:1}
+    }
+
+    @keyframes rbiDockOldOut{
+      0%,12%{opacity:1}
+      38%,100%{opacity:0}
+    }
+
+    @keyframes rbiFullNewIn{
+      0%,14%{opacity:0}
+      46%,100%{opacity:1}
+    }
   }
 }
