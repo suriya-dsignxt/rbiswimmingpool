@@ -85,7 +85,9 @@ button,input,select,textarea{font:inherit}
   .hero-bg{inset:0;background:url('assets/hero-reference.jpg') center/100% 100% no-repeat;filter:none}
   .hero-overlay,.hero::after{display:none}
   .site-header .brand,.site-header .main-nav{opacity:0}
-  .hero-content{position:absolute;inset:0;min-height:0;height:100%;opacity:0}
+  .hero-content{position:absolute;inset:0;min-height:0;height:100%;opacity:0;pointer-events:none}
+  .hero-actions{position:absolute;top:71.3%;left:50.1%;transform:translateX(-50%);display:flex;gap:3.76%;width:40.05%;height:5.8%;margin:0;pointer-events:auto}
+  .hero-actions .btn{width:48.12%;height:100%;min-width:0;padding:0}
 }
 
 @media (max-width:1500px){
