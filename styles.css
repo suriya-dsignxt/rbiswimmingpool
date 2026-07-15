@@ -17,9 +17,17 @@
   --narrow:1280px;
 }
 *{box-sizing:border-box}
+html.lenis,html.lenis body{height:auto}
+.lenis-smooth{scroll-behavior:auto!important}
+.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis-stopped{overflow:hidden}
+.lenis-scrolling iframe{pointer-events:none}
 html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
+
+/* Scroll Reveal Fade Up */
+.reveal-fade-up{opacity:0;transform:translateY(40px);transition:opacity .85s cubic-bezier(0.2,0.8,0.2,1),transform .85s cubic-bezier(0.2,0.8,0.2,1);will-change:opacity,transform}.reveal-fade-up.active{opacity:1;transform:translateY(0)}
 img{display:block;max-width:100%}
 button,input,select,textarea{font:inherit}
 .svg-sprite{position:absolute;width:0;height:0;overflow:hidden}
