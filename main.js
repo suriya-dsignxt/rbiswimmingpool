@@ -119,6 +119,10 @@ if (galleryTrack) {
   let startX = 0;
   let scrollLeft = 0;
   const viewport = document.querySelector('.gallery-viewport');
+  const prevBtn = document.querySelector('.gallery-prev');
+  const nextBtn = document.querySelector('.gallery-next');
+  const dotsContainer = document.querySelector('.gallery-dots');
+  const slides = Array.from(galleryTrack.querySelectorAll('img'));
 
   viewport.addEventListener('mousedown', (event) => {
     isDown = true;
@@ -144,6 +148,89 @@ if (galleryTrack) {
     const walk = (x - startX) * 1.2;
     viewport.scrollLeft = scrollLeft - walk;
   });
+
+  // Carousel controls logic
+  if (viewport && slides.length) {
+    // Generate dots
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = `gallery-dot${index === 0 ? ' active' : ''}`;
+      dot.addEventListener('click', () => {
+        scrollToSlide(index);
+      });
+      dotsContainer?.appendChild(dot);
+    });
+
+    const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll('.gallery-dot')) : [];
+
+    const getSlideWidth = () => {
+      if (slides.length < 2) return 0;
+      return slides[1].offsetLeft - slides[0].offsetLeft;
+    };
+
+    const updateDots = (activeIndex) => {
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeIndex);
+      });
+    };
+
+    const getActiveIndex = () => {
+      const currentScroll = viewport.scrollLeft;
+      const slideWidth = getSlideWidth();
+      if (slideWidth <= 0) return 0;
+      return Math.min(slides.length - 1, Math.round(currentScroll / slideWidth));
+    };
+
+    const scrollToSlide = (index) => {
+      const slideWidth = getSlideWidth();
+      viewport.scrollTo({
+        left: index * slideWidth,
+        behavior: 'smooth'
+      });
+      updateDots(index);
+    };
+
+    prevBtn?.addEventListener('click', () => {
+      const active = getActiveIndex();
+      const target = active > 0 ? active - 1 : slides.length - 1;
+      scrollToSlide(target);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      const active = getActiveIndex();
+      const target = active < slides.length - 1 ? active + 1 : 0;
+      scrollToSlide(target);
+    });
+
+    let scrollTimeout;
+    viewport.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (!isDown) updateDots(getActiveIndex());
+      }, 100);
+    });
+
+    // Autoplay
+    let autoPlayInterval = setInterval(() => {
+      if (!isDown) {
+        const active = getActiveIndex();
+        const target = active < slides.length - 1 ? active + 1 : 0;
+        scrollToSlide(target);
+      }
+    }, 4500);
+
+    viewport.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    viewport.addEventListener('mouseleave', () => {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(() => {
+        if (!isDown) {
+          const active = getActiveIndex();
+          const target = active < slides.length - 1 ? active + 1 : 0;
+          scrollToSlide(target);
+        }
+      }, 4500);
+    });
+  }
 }
 
 /*
