@@ -1,4 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@font-face {
+  font-family: 'Feature Display';
+  src: url('assets/fonts/FeatureDisplay-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('assets/fonts/sf-pro-display-light/sf-pro-display-light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('assets/fonts/sf-pro-display-regular/sf-pro-display-regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('assets/fonts/sf-pro-display-medium/sf-pro-display-medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('assets/fonts/sf-pro-display-medium/sf-pro-display-medium.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('assets/fonts/sf-pro-display-medium/sf-pro-display-medium.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
 
 :root{
   --black:#030303;
@@ -11,8 +46,8 @@
   --cyan:#69d7ff;
   --cyan-soft:#baf1ff;
   --gold:#ffd25a;
-  --serif:'Cormorant Garamond', Georgia, serif;
-  --sans:'Inter', system-ui, -apple-system, Segoe UI, sans-serif;
+  --serif:'Feature Display', Georgia, serif;
+  --sans:'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --container:1548px;
   --narrow:1280px;
 }
