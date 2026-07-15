@@ -358,7 +358,7 @@ button,input,select,textarea{font:inherit}
     html.nav-morph-enabled{view-transition-name:none}
     html.nav-morph-enabled .site-header:not(.is-past-hero) .main-nav{view-transition-name:rbi-nav-shell}
     html.nav-morph-enabled .site-header.is-past-hero{view-transition-name:rbi-nav-shell;animation:none}
-    html.nav-morph-enabled .site-header .brand{view-transition-name:rbi-nav-logo}
+    html.nav-morph-enabled .site-header .brand img{view-transition-name:rbi-nav-logo}
 
     ::view-transition-group(rbi-nav-shell){
       animation-duration:.72s;
@@ -366,8 +366,8 @@ button,input,select,textarea{font:inherit}
     }
 
     ::view-transition-group(rbi-nav-logo){
-      animation-duration:.45s;
-      animation-timing-function:cubic-bezier(.16,1,.3,1);
+      animation-duration:.72s;
+      animation-timing-function:cubic-bezier(0.1,0.9,0.2,1);
     }
 
     ::view-transition-image-pair(rbi-nav-shell),
@@ -400,8 +400,8 @@ button,input,select,textarea{font:inherit}
 
     ::view-transition-old(rbi-nav-logo),
     ::view-transition-new(rbi-nav-logo){
-      animation-duration:.45s;
-      animation-timing-function:cubic-bezier(.16,1,.3,1);
+      animation-duration:.72s;
+      animation-timing-function:cubic-bezier(0.1,0.9,0.2,1);
       mix-blend-mode:normal;
     }
 
