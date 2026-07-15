@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rebuild Infraa — Swimming Pool Builders in Chennai</title>
+  <title>Rebuild Infraa - Swimming Pool Builders in Chennai</title>
   <meta name="description" content="Swimming pools designed, built and maintained by Rebuild Infraa in Chennai." />
   <link rel="preload" href="assets/hero-pool.svg" as="image" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body id="top">
   <svg class="svg-sprite" aria-hidden="true" focusable="false">
     <symbol id="i-house" viewBox="0 0 64 64"><path d="M8 30 32 11l24 19v24H14V30"/><path d="M24 54V36h16v18"/><path d="M20 27h24"/></symbol>
     <symbol id="i-waterproof" viewBox="0 0 64 64"><path d="M32 8c8 12 16 19 16 30a16 16 0 0 1-32 0C16 27 24 20 32 8z"/><path d="M23 42c4 6 12 7 18 1"/></symbol>
@@ -36,10 +36,10 @@
     <symbol id="i-calendar" viewBox="0 0 64 64"><rect x="11" y="15" width="42" height="38" rx="4"/><path d="M20 10v10M44 10v10M11 25h42"/></symbol>
   </svg>
 
-  <header class="site-header" id="top">
+  <header class="site-header">
     <a class="brand" href="#top" aria-label="Rebuild Infraa home"><img src="assets/logo.png" alt="Rebuild Infraa" /></a>
-    <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
-    <nav class="main-nav" aria-label="Primary navigation">
+    <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="primary-navigation" aria-expanded="false"><span class="menu-toggle__label">Menu</span><span class="menu-toggle__lines" aria-hidden="true"><span></span><span></span><span></span></span></button>
+    <nav class="main-nav" id="primary-navigation" aria-label="Primary navigation">
       <a href="#pool-types">Pool Types</a>
       <a href="#who-for">Who We Build For</a>
       <a href="#process">Our Process</a>
@@ -115,14 +115,102 @@
         <p class="section-subtitle">First-time homeowners, luxury villa builders or large commercial projects - we treat every client with the same care and professionalism, and design a pool that fits their space, style and budget.</p>
       </div>
       <div class="container who-grid">
-        <article><img src="assets/whoicon/1.png" alt="Private Villas & Homes icon" /><h3>Private Villas &amp;<br>Homes</h3></article>
-        <article><img src="assets/whoicon/2.png" alt="Farmhouses & Weekend Homes icon" /><h3>Farmhouses &amp;<br>Weekend Homes</h3></article>
-        <article><img src="assets/whoicon/3.png" alt="Rooftop & Terrace Pools icon" /><h3>Rooftop &amp;<br>Terrace Pools</h3></article>
-        <article><img src="assets/whoicon/4.png" alt="Apartments & Gated Communities icon" /><h3>Apartments &amp;<br>Gated Communities</h3></article>
-        <article><img src="assets/whoicon/5.png" alt="Hotels & Resorts icon" /><h3>Hotels &amp; Resorts</h3></article>
-        <article><img src="assets/whoicon/6.png" alt="Clubs, Gyms & Spas icon" /><h3>Clubs, Gyms &amp; Spas</h3></article>
-        <article><img src="assets/whoicon/7.png" alt="Schools & Institutions icon" /><h3>Schools &amp; Institutions</h3></article>
-        <article><img src="assets/whoicon/8.png" alt="Builders & Developers icon" /><h3>Builders &amp; Developers</h3></article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/1.png" alt="Private Villas & Homes icon" />
+              <h3>Private Villas &amp;<br>Homes</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Private Villas &amp;<br>Homes</h3>
+              <p>Leak-proof, custom-shaped RCC pools with premium tiles, engineered for modern home backyards.</p>
+            </div>
+          </div>
+        </article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/2.png" alt="Farmhouses & Weekend Homes icon" />
+              <h3>Farmhouses &amp;<br>Weekend Homes</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Farmhouses &amp;<br>Weekend Homes</h3>
+              <p>Low-maintenance designs, eco-friendly filtration, and natural landscaping integrations.</p>
+            </div>
+          </div>
+        </article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/3.png" alt="Rooftop & Terrace Pools icon" />
+              <h3>Rooftop &amp;<br>Terrace Pools</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Rooftop &amp;<br>Terrace Pools</h3>
+              <p>Lightweight structures with precision load assessment and robust multi-layer waterproofing.</p>
+            </div>
+          </div>
+        </article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/4.png" alt="Apartments & Gated Communities icon" />
+              <h3>Apartments &amp;<br>Gated Communities</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Apartments &amp;<br>Gated Communities</h3>
+              <p>Heavy-duty filtration, dedicated safety systems, and cost-effective maintenance AMC.</p>
+            </div>
+          </div>
+        </article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/5.png" alt="Hotels & Resorts icon" />
+              <h3>Hotels &amp; Resorts</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Hotels &amp; Resorts</h3>
+              <p>Stunning infinity edges, designer water features, and high-capacity water treatment plants.</p>
+            </div>
+          </div>
+        </article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/6.png" alt="Clubs, Gyms & Spas icon" />
+              <h3>Clubs, Gyms &amp; Spas</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Clubs, Gyms &amp; Spas</h3>
+              <p>Salt-chlorinators, heated thermal pools, and custom jacuzzi/wellness add-ons.</p>
+            </div>
+          </div>
+        </article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/7.png" alt="Schools & Institutions icon" />
+              <h3>Schools &amp; Institutions</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Schools &amp; Institutions</h3>
+              <p>Standard racing configurations, shallow training zones, and ultra-hygienic automated filtration.</p>
+            </div>
+          </div>
+        </article>
+        <article class="flip-card">
+          <div class="flip-card-inner">
+            <div class="flip-card-front">
+              <img src="assets/whoicon/8.png" alt="Builders & Developers icon" />
+              <h3>Builders &amp; Developers</h3>
+            </div>
+            <div class="flip-card-back">
+              <h3>Builders &amp; Developers</h3>
+              <p>Joint site surveys, transparent fixed BOQ pricing, and strict adherence to project timelines.</p>
+            </div>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -182,9 +270,9 @@
           <tbody>
             <tr><td>Structural Design</td><td>✓ In-house M.Tech engineer</td><td>× Mason-led, no engineering</td></tr>
             <tr><td>Waterproofing</td><td>✓ Multi-layer + warranty</td><td>× Single coat, no warranty</td></tr>
-            <tr><td>Design Visualisation</td><td>✓ 3D design before digging</td><td>— Rough sketch only</td></tr>
+            <tr><td>Design Visualisation</td><td>✓ 3D design before digging</td><td>- Rough sketch only</td></tr>
             <tr><td>Pricing</td><td>✓ Transparent, detailed BOQ</td><td>× Quote changes mid-project</td></tr>
-            <tr><td>Filtration &amp; Automation</td><td>✓ Correctly engineered systems</td><td>— Undersized / generic</td></tr>
+            <tr><td>Filtration &amp; Automation</td><td>✓ Correctly engineered systems</td><td>- Undersized / generic</td></tr>
             <tr><td>Rooftop / Terrace Pools</td><td>✓ Load-assessed &amp; safe</td><td>× Risky or declined</td></tr>
             <tr><td>After-Handover Support</td><td>✓ AMC &amp; on-call service</td><td>× Rarely offered</td></tr>
             <tr><td>Free Site Consultation</td><td>✓ Free for serious enquiries</td><td>× Charged or not offered</td></tr>
